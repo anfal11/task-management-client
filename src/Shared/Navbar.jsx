@@ -1,6 +1,39 @@
-import { Link, NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import useAuth from "../Hooks/useAuth";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
+    const [userProfile, setUserProfile] = useState(null);
+    const [users, setUsers] = useState(null);
+    const { user, logOut } = useAuth();
+    const navigate = useNavigate();
+  
+    useEffect(() => {
+      setUserProfile({
+        displayName: user?.displayName,
+        photoURL: user?.photoURL,
+      });
+    }, [user]);
+  
+    useEffect(() => {
+      fetch(`http://localhost:5000/users`)
+        .then((res) => res.json())
+        .then((data) => {
+          setUsers(data);
+        });
+    }, []);
+  
+    const signOut = () => {
+      logOut()
+        .then(() => {
+          toast.success("user signed out");
+          navigate("/");
+        })
+        .catch((error) => {
+          toast.error(error.message);
+        });
+    };
   const nav = (
     <>
       <li>
@@ -39,23 +72,31 @@ const Navbar = () => {
           User Profile
         </NavLink>
       </li>
+      {
+  user ? (
+    <>
+      <li>
+        <Link onClick={signOut}>Logout</Link>
+      </li>
+    </>
+  ) : (
+    <>
       <li>
         <NavLink
-          to="/login"
           className={({ isActive }) =>
             isActive
               ? "p-2 rounded bg-[#B55EEA] hover:bg-[#382147] text-white"
               : "bg-white p-3"
           }
+          to="/login"
         >
-          Login
+          Log In
         </NavLink>
       </li>
-      {/* {
-            user ? <> <button onClick={handleLogOut} className="btn text-xs btn-ghost pb-3">Logout</button> </> : <><li>
-            <Link to="/login">Log In</Link>
-          </li> </>
-          } */}
+    </>
+  )
+}
+
     </>
   );
   return (
@@ -94,7 +135,7 @@ const Navbar = () => {
             {nav}
           </ul>
         </div>
-        {/* <div className="navbar-end">
+        <div className="navbar-end">
             {user?.email ? (
               <div className="flex items-center">
                 <img
@@ -111,21 +152,9 @@ const Navbar = () => {
             ) : (
               <></>
             )}
-            {user?.email ? (
-              <Link onClick={signOut} className="bg-white p-3">
-                Logout
-              </Link>
-            ) : (
-              <NavLink
-                to="/login"
-                className={({ isActive }) =>
-                  isActive ? "p-3 rounded bg-blue-400 text-white" : "bg-white p-3"
-                }
-              >
-                Login
-              </NavLink>
-            )}
-          </div> */}
+           
+          </div> 
+         
       </div>
     </div>
   );

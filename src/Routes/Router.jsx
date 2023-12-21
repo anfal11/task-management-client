@@ -6,6 +6,9 @@ import Register from "../Pages/Register";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../Pages/Dashboard";
 import UserProfile from "../Pages/UserProfile";
+import UserHome from "../Components/UserHome";
+import AddTasks from "../Components/AddTasks";
+import ToDo from "../Components/ToDo";
 
 export const router = createBrowserRouter([
     {
@@ -17,10 +20,7 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
-      {
-        path: "/dashboard",
-        element: <PrivateRoute><Dashboard /></PrivateRoute>,
-      },
+    
       {
         path: "/profile",
         element: <PrivateRoute><UserProfile /></PrivateRoute>,
@@ -35,4 +35,22 @@ export const router = createBrowserRouter([
       }
     ]
     },
+    {
+        path: "dashboard",
+        element: <PrivateRoute><Dashboard /></PrivateRoute>,
+        children: [
+            {
+                path: "userHome",
+                element: <PrivateRoute><UserHome /></PrivateRoute>,
+            },
+            {
+                path: "addTasks",
+                element: <PrivateRoute><AddTasks /></PrivateRoute>,
+            },
+            {
+                path: "toDo",
+                element: <PrivateRoute><ToDo /></PrivateRoute>,
+            }
+        ]
+      },
   ]);
