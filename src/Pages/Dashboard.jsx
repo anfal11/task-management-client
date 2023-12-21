@@ -2,7 +2,6 @@ import { NavLink, Outlet } from "react-router-dom";
 import { GrArticle } from "react-icons/gr";
 import { FaUserAlt } from "react-icons/fa";
 import { BsCart4, BsHouse, BsPaypal } from "react-icons/bs";
-import { MdOutlineUpload } from "react-icons/md";
 import { CiMenuBurger } from "react-icons/ci";
 import useAuth from "../Hooks/useAuth";
 
