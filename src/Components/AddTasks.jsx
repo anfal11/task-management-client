@@ -9,7 +9,7 @@ const AddTasks = ({ onSubmit }) => {
   const axiosData = useAxiosPublic();
   const { user } = useAuth();
 
-  const onSubmitForm = async (data) => {
+  const onSubmitForm = async (data, e) => {
 
     data.user_email = user?.email;
   
@@ -19,7 +19,7 @@ const AddTasks = ({ onSubmit }) => {
       const response = await axiosData.post("/tasks", data);
       console.log("Data successfully posted:", response.data);
       toast.success("Task Created Successfully");
-  
+      e.target.reset();
       if (onSubmit) {
         onSubmit(data);
       }

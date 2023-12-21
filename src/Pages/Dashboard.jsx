@@ -40,11 +40,11 @@ const Dashboard = () => {
               <>
                 <li>
                   <NavLink
-                    to="/dashboard/userHome"
+                    to="/dashboard/allTasks"
                     className="menu text-base lg:text-2xl p-5 text-black text-center"
                   >
                     <BsHouse></BsHouse>
-                    User Home
+                    All Tasks
                   </NavLink>
                 </li>
                 <li>
@@ -62,13 +62,23 @@ const Dashboard = () => {
                     className="menu text-base lg:text-2xl p-5 text-black text-center"
                   >
                     <GrArticle></GrArticle>
-                    To Do
+                    Lists
                   </NavLink>
                 </li>
               </>
             ) }
 
-                      </ul>
+            <div className="divider"></div>
+            <li>
+              <NavLink
+                to="/"
+                className="menu text-base lg:text-2xl p-5 text-black text-center"
+              >
+                <BsHouse></BsHouse>
+                Home
+              </NavLink>
+            </li>
+            </ul>
         
         </div>
         
