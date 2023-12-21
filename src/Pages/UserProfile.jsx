@@ -19,7 +19,7 @@ const UserProfile = () => {
 
   // Check if u is an array before using filter
   const userData = Array.isArray(u)
-    ? u.find((users) => users?.email === user?.email)
+    ? u?.find((users) => users?.email === user?.email)
     : [];
   console.log(userData);
 
